@@ -1,0 +1,1 @@
+alert http any any -> any any (msg:"GENERIC HTTP ALERT"; sid:1000004; classtype:policy-violation; rev:1;)

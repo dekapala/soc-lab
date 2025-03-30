@@ -1,0 +1,26 @@
+services:
+  suricata:
+    image: jasonish/suricata
+    container_name: suricata
+    privileged: true
+    volumes:
+      - ./suricata/suricata.yaml:/etc/suricata/suricata.yaml:ro
+      - ./suricata/custom.rules:/etc/suricata/rules/custom.rules:ro
+      - ./logs:/var/log/suricata
+    entrypoint: ["/usr/bin/suricata", "-c", "/etc/suricata/suricata.yaml", "-i", "any", "-v"]
+    networks:
+      - suricata-net
+
+  traffic-generator:
+    image: alpine
+    container_name: traffic-generator
+    command: >
+      sh -c "apk add --no-cache curl && while true; do curl -s http://example.com > /dev/null; sleep 2; done"
+    networks:
+      - suricata-net
+
+
+
+networks:
+  suricata-net:
+    driver: bridge
