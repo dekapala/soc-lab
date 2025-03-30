@@ -41,6 +41,8 @@ Due to the networking architecture of Docker Desktop on Windows:
 
 ```text
 alert http any any -> any any (msg:"DVWA access detected"; sid:1000003;)
+```
+
 
 Next Steps and Recommendations
 Run the same environment on Linux or WSL2 for full network visibility
